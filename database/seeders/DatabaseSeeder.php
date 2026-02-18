@@ -18,8 +18,14 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Amdin',
+            'email' => 'admin@laravel.com',
+            'password' => bcrypt('admin123'),
+            'role' => 'super_admin'
+        ]);
+        $this->call([
+            SuspectSeeder::class,
+            CasesSeeder::class,
         ]);
     }
 }

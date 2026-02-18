@@ -11,7 +11,18 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        $middleware->alias(
+            [
+                'auth' => \App\Http\Middleware\Authenticate::class
+            ]);
+
+        $middleware->group('web',[
+            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            \Illuminate\Session\Middleware\StartSession::class,
+            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \RealRashid\SweetAlert\ToSweetAlert::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
