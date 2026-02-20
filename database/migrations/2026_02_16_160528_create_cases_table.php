@@ -22,6 +22,9 @@ return new class extends Migration
             $table->string('decision');
             $table->string('division');
             $table->text('description')->nullable();
+//            make new columns for case updated actor from user table
+            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->text('evidence')->nullable();
             $table->timestamps();
         });
     }

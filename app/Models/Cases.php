@@ -18,11 +18,19 @@ class Cases extends Model
          'datetime',
          'decision',
          'division',
-         'description'
+         'description',
+         'updated_by',
+         'evidence'
     ];
 
     public function suspect()
     {
         return $this->belongsTo(Suspect::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+
     }
 }

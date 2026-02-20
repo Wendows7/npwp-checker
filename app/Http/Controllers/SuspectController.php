@@ -93,7 +93,9 @@ class SuspectController extends Controller
             'cases.*.datetime' => 'nullable|date',
             'cases.*.division' => 'nullable|string',
             'cases.*.decision' => 'nullable|string',
-            'cases.*.description' => 'nullable|string'
+            'cases.*.description' => 'nullable|string',
+            'cases.*.updated_by' => 'nullable|exists:users,id',
+            'cases.*.evidence' => 'nullable|string',
         ]);
 
         try {
@@ -121,6 +123,7 @@ class SuspectController extends Controller
 
     public function update(Request $request, Suspect $suspect)
     {
+
         $request->validate([
             'nik' => 'required|unique:suspects,nik,' . $suspect->id,
             'name' => 'required|string',
@@ -145,7 +148,11 @@ class SuspectController extends Controller
             'cases.*.datetime' => 'nullable|date',
             'cases.*.division' => 'nullable|string',
             'cases.*.decision' => 'nullable|string',
-            'cases.*.description' => 'nullable|string'
+            'cases.*.description' => 'nullable|string',
+            'cases.*.updated_by' => 'nullable|exists:users,id',
+            'cases.*.evidence' => 'nullable|string',
+
+
         ]);
 
         try {

@@ -18,17 +18,17 @@ class SuspectService
 
     public function getByNik($nik)
     {
-        return $this->suspect->where('nik', 'LIKE', '%' . $nik . '%')->with('cases')->get();
+        return $this->suspect->where('nik', 'LIKE', '%' . $nik . '%')->with('cases.user')->get();
     }
 
     public function getAll()
     {
-        return $this->suspect->with('cases')->latest();
+        return $this->suspect->with('cases.user')->latest();
     }
 
     public function getAllWithCases()
     {
-        return $this->suspect->with('cases')->get();
+        return $this->suspect->with('cases.user')->get();
     }
 
     /**
@@ -65,6 +65,8 @@ class SuspectService
                             'division' => $caseData['division'] ?? null,
                             'decision' => $caseData['decision'] ?? null,
                             'description' => $caseData['description'] ?? null,
+                            'updated_by' => $caseData['updated_by'] ?? null,
+                            'evidence' => $caseData['evidence'] ?? null,
                         ]);
                     }
                 }
@@ -120,26 +122,51 @@ class SuspectService
                 foreach ($casesData as $caseData) {
                     // Only process case if it has at least number or name
                     if (!empty($caseData['number']) || !empty($caseData['name'])) {
-                        $casePayload = [
-                            'number' => $caseData['number'] ?? null,
-                            'name' => $caseData['name'] ?? null,
-                            'chapter' => $caseData['chapter'] ?? null,
-                            'place' => $caseData['place'] ?? null,
-                            'datetime' => $caseData['datetime'] ?? null,
-                            'division' => $caseData['division'] ?? null,
-                            'decision' => $caseData['decision'] ?? null,
-                            'description' => $caseData['description'] ?? null,
-                        ];
-
                         if (!empty($caseData['id'])) {
-                            // Update existing case
+                            // Update existing case - only update updated_by if data changed
                             $case = $suspect->cases()->find($caseData['id']);
                             if ($case) {
-                                $case->update($casePayload);
+                                // Check if any field has changed
+                                $hasChanges = false;
+                                $casePayload = [];
+
+                                $fieldsToCheck = ['number', 'name', 'chapter', 'place', 'datetime', 'division', 'decision', 'description','evidence'];
+
+                                foreach ($fieldsToCheck as $field) {
+                                    $newValue = $caseData[$field] ?? null;
+                                    if ($case->$field != $newValue) {
+                                        $hasChanges = true;
+                                        $casePayload[$field] = $newValue;
+                                    }
+                                }
+
+                                // Only add updated_by if there are actual changes
+                                if ($hasChanges && isset($caseData['updated_by'])) {
+                                    $casePayload['updated_by'] = $caseData['updated_by'];
+                                }
+
+                                // Update only if there are changes
+                                if (!empty($casePayload)) {
+                                    $case->update($casePayload);
+                                }
+
                                 $submittedCaseIds[] = $caseData['id'];
                             }
                         } else {
                             // Create new case
+                            $casePayload = [
+                                'number' => $caseData['number'] ?? null,
+                                'name' => $caseData['name'] ?? null,
+                                'chapter' => $caseData['chapter'] ?? null,
+                                'place' => $caseData['place'] ?? null,
+                                'datetime' => $caseData['datetime'] ?? null,
+                                'division' => $caseData['division'] ?? null,
+                                'decision' => $caseData['decision'] ?? null,
+                                'description' => $caseData['description'] ?? null,
+                                'updated_by' => $caseData['updated_by'] ?? null,
+                                'evidence' => $caseData['evidence'] ?? null,
+                            ];
+
                             $newCase = $suspect->cases()->create($casePayload);
                             $submittedCaseIds[] = $newCase->id;
                         }

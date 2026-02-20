@@ -23,8 +23,8 @@
                             <dt class="col-4">Place</dt>
                             <dd class="col-8">{{ $case->place ?? '-' }}</dd>
 
-                            <dt class="col-4">Date & Time</dt>
-                            <dd class="col-8">{{ $case->datetime ? \Carbon\Carbon::parse($case->datetime)->format('d M Y H:i') : ($case->date ?? ($case->created_at ?? '-')) }}</dd>
+                            <dt class="col-4">Date</dt>
+                            <dd class="col-8">{{ $case->datetime ? \Carbon\Carbon::parse($case->datetime)->format('d M Y') : ($case->date ?? ($case->created_at ?? '-')) }}</dd>
 
                             <dt class="col-4">Decision</dt>
                             <dd class="col-8">{{ $case->decision ?? '-' }}</dd>
@@ -34,6 +34,19 @@
 
                             <dt class="col-4">Description</dt>
                             <dd class="col-8">{!! nl2br(e($case->description ?? '-')) !!}</dd>
+
+                            <dt class="col-4">Created at</dt>
+                            <dd class="col-8">{{ $case->created_at ? \Carbon\Carbon::parse($case->created_at)->format('d M Y H:i') : ($case->created_at ?? ('-')) }}</dd>
+
+                            <dt class="col-4">Updated at</dt>
+                            <dd class="col-8">{{ $case->updated_at ? \Carbon\Carbon::parse($case->updated_at)->format('d M Y H:i') : ($case->updated_at ?? ('-')) }}</dd>
+
+                            <dt class="col-4">Updated by</dt>
+                            <dd class="col-8">{{ $case->user->name ?? '-' }}</dd>
+
+                            <dt class="col-4">Evidence</dt>
+                            <dd class="col-8">{!! nl2br(e($case->evidence ?? '-')) !!}</dd>
+
                         </dl>
                     </div>
                     <div class="modal-footer">

@@ -12,7 +12,6 @@
                 <div class="modal-body">
                     @csrf
                     <h6 class="mb-3 text-primary"><i class="fas fa-user"></i>&nbsp;Suspect Information</h6>
-
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="nik">NIK <span class="text-danger">*</span></label>
@@ -160,6 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="form-group col-md-6">
                             <label>Case Number</label>
                             <input type="text" class="form-control" name="cases[${index}][number]" value="{{ old('cases.${index}.number') }}">
+                            <input type="hidden" class="form-control" name="cases[${index}][updated_by]" value="{{ auth()->user()->id }}">
                         </div>
                         <div class="form-group col-md-6">
                             <label>Case Name</label>
@@ -180,8 +180,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label>Date & Time</label>
-                            <input type="datetime-local" class="form-control" name="cases[${index}][datetime]" value="{{ old('cases.${index}.datetime') }}">
+                            <label>Date</label>
+                            <input type="date" class="form-control" name="cases[${index}][datetime]" value="{{ old('cases.${index}.datetime') }}">
                         </div>
                         <div class="form-group col-md-6">
                             <label>Division</label>
@@ -197,6 +197,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="form-group">
                         <label>Description</label>
                         <textarea class="form-control" name="cases[${index}][description]" rows="2">{{ old('cases.${index}.description') }}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Evidence</label>
+                        <textarea class="form-control" name="cases[${index}][evidence]" rows="2">{{ old('cases.${index}.evidence') }}</textarea>
                     </div>
                 </div>
             </div>

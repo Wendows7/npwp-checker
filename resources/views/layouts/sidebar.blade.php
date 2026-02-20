@@ -1,10 +1,10 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
       <div class="sidebar-brand">
-        <a href="/dashboard">NPWP CHECKER</a>
+        <a href="/dashboard">Antik Sumut</a>
       </div>
       <div class="sidebar-brand sidebar-brand-sm">
-        <a href="/dashboard">NPWP</a>
+        <a href="/dashboard">ANSUM</a>
       </div>
       <ul class="sidebar-menu">
           <li class={{ Request::is('suspect*')? 'active' : '' }}><a class="nav-link" href="{{route('suspect')}}"><i class="far fa-user"></i> <span>Check Data Tersangka</span></a></li>

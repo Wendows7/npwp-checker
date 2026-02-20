@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
             'name' => 'Amdin',
             'email' => 'admin@laravel.com',
             'password' => bcrypt('admin123'),
-            'role' => 'super_admin'
+            'role' => 'super_admin',
+            'is_active' => true
         ]);
         $this->call([
             SuspectSeeder::class,

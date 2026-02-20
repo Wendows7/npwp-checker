@@ -127,6 +127,7 @@
                                     </div>
                                     <div class="card-body">
                                         <input type="hidden" name="cases[{{ $caseIndex }}][id]" value="{{ $case->id }}">
+                                        <input type="hidden" name="cases[{{ $caseIndex }}][updated_by]" value="{{ auth()->user()->id }}">
 
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
@@ -152,8 +153,8 @@
 
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
-                                                <label>Date & Time</label>
-                                                <input type="datetime" class="form-control" name="cases[{{ $caseIndex }}][datetime]" value="{{ old('cases.'.$caseIndex.'.datetime', $case->datetime) }}">
+                                                <label>Date</label>
+                                                <input type="date" class="form-control" name="cases[{{ $caseIndex }}][datetime]" value="{{ old('cases.'.$caseIndex.'.datetime', $case->datetime) }}">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label>Division</label>
@@ -169,6 +170,10 @@
                                         <div class="form-group">
                                             <label>Description</label>
                                             <textarea class="form-control" name="cases[{{ $caseIndex }}][description]" rows="2">{{ old('cases.'.$caseIndex.'.description', $case->description) }}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Evidence</label>
+                                            <textarea class="form-control" name="cases[{{ $caseIndex }}][evidence]" rows="2">{{ old('cases.'.$caseIndex.'.evidence', $case->evidence) }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -227,6 +232,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="form-group col-md-6">
                             <label>Case Number</label>
                             <input type="text" class="form-control" name="cases[${index}][number]">
+                            <input type="hidden" class="form-control" name="cases[${index}][updated_by]" value="{{ auth()->user()->id }}">
                         </div>
                         <div class="form-group col-md-6">
                             <label>Case Name</label>
@@ -247,8 +253,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label>Date & Time</label>
-                            <input type="datetime-local" class="form-control" name="cases[${index}][datetime]">
+                            <label>Date</label>
+                            <input type="date" class="form-control" name="cases[${index}][datetime]">
                         </div>
                         <div class="form-group col-md-6">
                             <label>Division</label>
@@ -264,6 +270,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="form-group">
                         <label>Description</label>
                         <textarea class="form-control" name="cases[${index}][description]" rows="2"></textarea>
+                    </div>
+
+                     <div class="form-group">
+                        <label>Evidence</label>
+                        <textarea class="form-control" name="cases[${index}][evidence]" rows="2"></textarea>
                     </div>
                 </div>
             </div>

@@ -28,8 +28,7 @@ class SuspectFactory extends Factory
             'education' => fake()->randomElement(['High School', 'Bachelor', 'Master', 'Doctorate']),
             'occupation' => fake()->jobTitle(),
             'address' => fake()->address(),
-            'finger_code' => fake()->optional()->numerify('FC-########'),
-            'photo' => fake()->optional()->imageUrl(640, 480, 'people'),
+            'finger_code' => fake()->optional()->numerify('FC-########')
 
         ];
     }

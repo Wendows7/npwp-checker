@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>NPWP CHECKER</title>
+    <title>Antik Sumut</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('dashboard/assets/img/harapan.png') }}" />
 
     <!-- General CSS Files -->

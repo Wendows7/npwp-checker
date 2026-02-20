@@ -36,8 +36,7 @@ class LoginController extends Controller
 
         // Set session timeout ke 7 jam
         session(['login_time' => now()]);
-        session(['session_expires_at' => now()->addHours(env('SESSION_EXPIRES_TIME'))]);
-
+        session(['session_expires_at' => now()->addHours(intval(env('SESSION_EXPIRES_TIME')))]);
         if (!$auth['success']) {
             return redirect()->back()->with('error', $auth['message']);
         }
