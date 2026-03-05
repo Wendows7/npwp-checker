@@ -83,12 +83,14 @@
                         <td>{{ $user->is_active == 1 ? "Active" : "Inactive" }}</td>
                         <td>
                             <button class="btn btn-icon btn-warning btn-sm mb-1"  data-toggle="modal" data-target="#editModal{{ $user->id }}"><i class="fas fa-exclamation-triangle"></i>Edit</button>
+                              @if($user->role !== 'super_admin')
                           <form action="{{route('users.delete')}} " method="POST" >
                             @method('delete')
                             @csrf
                             <button  class="btn btn-icon btn-danger btn-sm show_confirm" ><i class="fas fa-times"></i>Delete</button>
                               <input type="hidden" name="id" value="{{ $user->id }}">
                           </form>
+                              @endif
 
                         </td>
                       </tr>
