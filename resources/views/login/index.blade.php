@@ -58,7 +58,7 @@
                             </div>
                         </div>
                         <div class="simple-footer">
-                            Copyright &copy; NPWP Checker {{ now()->format('Y') }}
+                            Copyright &copy; Antik Sumut {{ now()->format('Y') }}
                         </div>
                     </div>
                 </div>

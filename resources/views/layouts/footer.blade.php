@@ -1,6 +1,6 @@
 <footer class="main-footer">
     <div class="footer-left">
-      Copyright &copy; NPWP CHECKER {{ now()->format('Y') }}
+      Copyright &copy; Antik Sumut {{ now()->format('Y') }}
     </div>
     <div class="footer-right">
 
