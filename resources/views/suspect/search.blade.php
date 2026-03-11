@@ -30,7 +30,7 @@
             <div class="section-body">
                 <h2 class="section-title">Pencarian</h2>
                 <p class="section-lead">
-                    Cari data tersangka berdasarkan NIK, Nama, Nomor Kasus, atau Tanggal Kasus
+                    Cari data tersangka berdasarkan NIK, Nama, Nomor LP, atau Tanggal Kasus
                 </p>
 
                 <div class="row mb-4">
@@ -46,7 +46,7 @@
                                                        name="keyword"
                                                        id="keyword"
                                                        class="form-control form-control-lg"
-                                                       placeholder="Cari berdasarkan NIK, Nama, atau Nomor Kasus"
+                                                       placeholder="Cari berdasarkan NIK, Nama, atau Nomor LP"
                                                        value="{{ request('keyword') }}">
                                                 <small class="form-text text-muted">
                                                     <i class="fas fa-info-circle"></i> Masukkan NIK, Nama Tersangka, atau Nomor LP
@@ -285,7 +285,7 @@
                 @else
                     <div class="alert alert-info">
                         <h5><i class="fas fa-info-circle"></i> Silakan Lakukan Pencarian</h5>
-                        <p class="mb-0">Gunakan form pencarian di atas untuk mencari data tersangka berdasarkan NIK, Nama, Nomor Kasus, atau Tanggal Kasus.</p>
+                        <p class="mb-0">Gunakan form pencarian di atas untuk mencari data tersangka berdasarkan NIK, Nama, Nomor LP, atau Tanggal Kasus.</p>
                     </div>
                 @endif
 
