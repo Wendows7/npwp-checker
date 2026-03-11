@@ -49,7 +49,7 @@
                                                        placeholder="Cari berdasarkan NIK, Nama, atau Nomor Kasus"
                                                        value="{{ request('keyword') }}">
                                                 <small class="form-text text-muted">
-                                                    <i class="fas fa-info-circle"></i> Masukkan NIK, Nama Tersangka, atau Nomor Kasus
+                                                    <i class="fas fa-info-circle"></i> Masukkan NIK, Nama Tersangka, atau Nomor LP
                                                 </small>
                                             </div>
                                         </div>
