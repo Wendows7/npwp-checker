@@ -105,8 +105,8 @@
          var name = $(this).data("name");
          event.preventDefault();
          swal({
-             title: `Are you sure you want to delete this data?`,
-             text: "If you delete this, it will be gone forever.",
+             title: `Apakah Anda yakin ingin menghapus data ini?`,
+             text: "Jika Anda menghapusnya, data akan hilang selamanya.",
              icon: "warning",
              buttons: true,
              dangerMode: true,

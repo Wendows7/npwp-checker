@@ -71,7 +71,7 @@ class SuspectController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nik' => 'required|unique:suspects,nik',
+            'nik' => 'unique:suspects,nik',
             'name' => 'required|string',
             'gender' => 'required|string',
             'alias' => 'nullable|string',
@@ -83,10 +83,10 @@ class SuspectController extends Controller
             'occupation' => 'nullable|string',
             'address' => 'nullable|string',
             'finger_code' => 'nullable|string',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048|required',
             // Case validation - now accepts array
             'cases' => 'nullable|array',
-            'cases.*.number' => 'nullable|string',
+            'cases.*.number' => 'nullable|string|required',
             'cases.*.name' => 'nullable|string',
             'cases.*.chapter' => 'nullable|string',
             'cases.*.place' => 'nullable|string',
@@ -96,6 +96,7 @@ class SuspectController extends Controller
             'cases.*.description' => 'nullable|string',
             'cases.*.updated_by' => 'nullable|exists:users,id',
             'cases.*.evidence' => 'nullable|string',
+            'cases.*.photo_evidence' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         try {
@@ -108,6 +109,17 @@ class SuspectController extends Controller
 
             // Get cases data (already in array format)
             $casesData = $request->input('cases', []);
+
+            // Attach photo_evidence files to cases data
+            // Laravel handles nested file uploads differently
+            if (!empty($casesData) && is_array($casesData)) {
+                foreach ($casesData as $index => $caseData) {
+                    // Check if this specific case has a photo_evidence file
+                    if ($request->hasFile("cases.{$index}.photo_evidence")) {
+                        $casesData[$index]['photo_evidence'] = $request->file("cases.{$index}.photo_evidence");
+                    }
+                }
+            }
 
             // Create suspect with cases using service
             $photoFile = $request->hasFile('photo') ? $request->file('photo') : null;
@@ -151,7 +163,7 @@ class SuspectController extends Controller
             'cases.*.description' => 'nullable|string',
             'cases.*.updated_by' => 'nullable|exists:users,id',
             'cases.*.evidence' => 'nullable|string',
-
+            'cases.*.photo_evidence' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
 
         ]);
 
@@ -165,6 +177,17 @@ class SuspectController extends Controller
 
             // Get cases data (already in array format)
             $casesData = $request->input('cases', []);
+
+            // Attach photo_evidence files to cases data
+            // Laravel handles nested file uploads differently
+            if (!empty($casesData) && is_array($casesData)) {
+                foreach ($casesData as $index => $caseData) {
+                    // Check if this specific case has a photo_evidence file
+                    if ($request->hasFile("cases.{$index}.photo_evidence")) {
+                        $casesData[$index]['photo_evidence'] = $request->file("cases.{$index}.photo_evidence");
+                    }
+                }
+            }
 
             // Update suspect with cases using service
             $photoFile = $request->hasFile('photo') ? $request->file('photo') : null;

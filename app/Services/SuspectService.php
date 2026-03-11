@@ -53,9 +53,15 @@ class SuspectService
 
             // Create multiple cases if cases data provided
             if ($casesData && is_array($casesData)) {
-                foreach ($casesData as $caseData) {
+                foreach ($casesData as $index => $caseData) {
                     // Only create case if it has at least number or name
                     if (!empty($caseData['number']) || !empty($caseData['name'])) {
+                        // Handle photo_evidence upload for case
+                        $photoEvidencePath = null;
+                        if (isset($caseData['photo_evidence']) && $caseData['photo_evidence']) {
+                            $photoEvidencePath = $caseData['photo_evidence']->store('cases/evidence', 'public');
+                        }
+
                         $suspect->cases()->create([
                             'number' => $caseData['number'] ?? null,
                             'name' => $caseData['name'] ?? null,
@@ -67,6 +73,7 @@ class SuspectService
                             'description' => $caseData['description'] ?? null,
                             'updated_by' => $caseData['updated_by'] ?? null,
                             'evidence' => $caseData['evidence'] ?? null,
+                            'photo_evidence' => $photoEvidencePath,
                         ]);
                     }
                 }
@@ -140,6 +147,16 @@ class SuspectService
                                     }
                                 }
 
+                                // Handle photo_evidence upload for case
+                                if (isset($caseData['photo_evidence']) && $caseData['photo_evidence']) {
+                                    // Delete old photo evidence if exists
+                                    if ($case->photo_evidence && Storage::disk('public')->exists($case->photo_evidence)) {
+                                        Storage::disk('public')->delete($case->photo_evidence);
+                                    }
+                                    $casePayload['photo_evidence'] = $caseData['photo_evidence']->store('cases/evidence', 'public');
+                                    $hasChanges = true;
+                                }
+
                                 // Only add updated_by if there are actual changes
                                 if ($hasChanges && isset($caseData['updated_by'])) {
                                     $casePayload['updated_by'] = $caseData['updated_by'];
@@ -154,6 +171,11 @@ class SuspectService
                             }
                         } else {
                             // Create new case
+                            $photoEvidencePath = null;
+                            if (isset($caseData['photo_evidence']) && $caseData['photo_evidence']) {
+                                $photoEvidencePath = $caseData['photo_evidence']->store('cases/evidence', 'public');
+                            }
+
                             $casePayload = [
                                 'number' => $caseData['number'] ?? null,
                                 'name' => $caseData['name'] ?? null,
@@ -165,6 +187,7 @@ class SuspectService
                                 'description' => $caseData['description'] ?? null,
                                 'updated_by' => $caseData['updated_by'] ?? null,
                                 'evidence' => $caseData['evidence'] ?? null,
+                                'photo_evidence' => $photoEvidencePath,
                             ];
 
                             $newCase = $suspect->cases()->create($casePayload);
@@ -175,6 +198,17 @@ class SuspectService
 
                 // Delete cases that were removed from the form
                 if (!empty($submittedCaseIds)) {
+                    // Get cases to be deleted to clean up their photos
+                    $casesToDelete = $suspect->cases()->whereNotIn('id', $submittedCaseIds)->get();
+
+                    // Delete photo_evidence files
+                    foreach ($casesToDelete as $caseToDelete) {
+                        if ($caseToDelete->photo_evidence && Storage::disk('public')->exists($caseToDelete->photo_evidence)) {
+                            Storage::disk('public')->delete($caseToDelete->photo_evidence);
+                        }
+                    }
+
+                    // Delete the cases
                     $suspect->cases()->whereNotIn('id', $submittedCaseIds)->delete();
                 }
             }
@@ -203,9 +237,18 @@ class SuspectService
         DB::beginTransaction();
 
         try {
-            // Delete photo if exists
+            // Delete suspect photo if exists
             if ($suspect->photo && Storage::disk('public')->exists($suspect->photo)) {
                 Storage::disk('public')->delete($suspect->photo);
+            }
+
+            // Delete all photo_evidence files from cases
+            if ($suspect->cases && $suspect->cases->count() > 0) {
+                foreach ($suspect->cases as $case) {
+                    if ($case->photo_evidence && Storage::disk('public')->exists($case->photo_evidence)) {
+                        Storage::disk('public')->delete($case->photo_evidence);
+                    }
+                }
             }
 
             // Delete suspect (cases will be cascade deleted if foreign key is set with onDelete cascade)

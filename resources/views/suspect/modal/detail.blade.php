@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="detailModalLabel{{ $suspect->id }}">Suspect: {{ $suspect->name ?? '-' }} ({{ $suspect->nik ?? '-' }})</h5>
+                <h5 class="modal-title" id="detailModalLabel{{ $suspect->id }}">Tersangka: {{ $suspect->name ?? '-' }} ({{ $suspect->nik ?? '-' }})</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -16,37 +16,37 @@
                             <dt class="col-4">NIK</dt>
                             <dd class="col-8">{{ $suspect->nik ?? '-' }}</dd>
 
-                            <dt class="col-4">Name</dt>
+                            <dt class="col-4">Nama</dt>
                             <dd class="col-8">{{ $suspect->name ?? '-' }}</dd>
 
                             <dt class="col-4">Alias</dt>
                             <dd class="col-8">{{ $suspect->alias ?? '-' }}</dd>
 
-                            <dt class="col-4">Gender</dt>
-                            <dd class="col-8">{{ $suspect->gender ?? '-' }}</dd>
+                            <dt class="col-4">Jenis Kelamin</dt>
+                            <dd class="col-8">{{ $suspect->gender == 'Male' ? 'Laki-laki' : ($suspect->gender == 'Female' ? 'Perempuan' : ($suspect->gender ?? '-')) }}</dd>
 
-                            <dt class="col-4">Age</dt>
+                            <dt class="col-4">Umur</dt>
                             <dd class="col-8">{{ $suspect->age ?? '-' }}</dd>
 
-                            <dt class="col-4">Place of Birth</dt>
+                            <dt class="col-4">Tempat Lahir</dt>
                             <dd class="col-8">{{ $suspect->place_of_birth ?? '-' }}</dd>
 
-                            <dt class="col-4">Date of Birth</dt>
+                            <dt class="col-4">Tanggal Lahir</dt>
                             <dd class="col-8">{{ $suspect->date_of_birth ?? '-' }}</dd>
 
-                            <dt class="col-4">Address</dt>
+                            <dt class="col-4">Alamat</dt>
                             <dd class="col-8">{{ $suspect->address ?? '-' }}</dd>
 
-                            <dt class="col-4">Religion</dt>
+                            <dt class="col-4">Agama</dt>
                             <dd class="col-8">{{ $suspect->religion ?? '-' }}</dd>
 
-                            <dt class="col-4">Education</dt>
+                            <dt class="col-4">Pendidikan</dt>
                             <dd class="col-8">{{ $suspect->education ?? '-' }}</dd>
 
-                            <dt class="col-4">Occupation</dt>
+                            <dt class="col-4">Pekerjaan</dt>
                             <dd class="col-8">{{ $suspect->occupation ?? '-' }}</dd>
 
-                            <dt class="col-4">Finger Code</dt>
+                            <dt class="col-4">Kode Sidik Jari</dt>
                             <dd class="col-8">{{ $suspect->finger_code ?? '-' }}</dd>
 
                         </dl>
@@ -68,7 +68,7 @@
                             </div>
                         @else
                             <div class="border rounded d-flex align-items-center justify-content-center" style="height:200px;">
-                                <span class="text-muted">No image available</span>
+                                <span class="text-muted">Tidak ada gambar</span>
                             </div>
                         @endif
                     </div>
@@ -78,7 +78,7 @@
                 @if(!empty($suspect->cases) && is_iterable($suspect->cases) && count($suspect->cases))
                     <div class="card mt-3">
                         <div class="card-header bg-light">
-                            <h6 class="mb-0"><i class="fas fa-gavel"></i>&nbsp;Cases ({{ $suspect->cases->count() }})</h6>
+                            <h6 class="mb-0"><i class="fas fa-gavel"></i>&nbsp;Kasus ({{ $suspect->cases->count() }})</h6>
                         </div>
                         <div class="card-body p-0">
                             <div class="table-responsive">
@@ -91,9 +91,9 @@
                                         <th>Pasal</th>
                                         <th>Tempat</th>
                                         <th>Tanggal</th>
-                                        <th>Keputusan</th>
+{{--                                        <th>Keputusan</th>--}}
                                         <th>Divisi</th>
-                                        <th class="text-center">Action</th>
+                                        <th class="text-center">Aksi</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -105,11 +105,11 @@
                                             <td>{{ $case->chapter ?? '-' }}</td>
                                             <td>{{ $case->place ?? '-' }}</td>
                                             <td>{{ $case->datetime ? \Carbon\Carbon::parse($case->datetime)->format('d M Y') : ($case->date ?? ($case->created_at ?? '-')) }}</td>
-                                            <td>{{ $case->decision ?? '-' }}</td>
+{{--                                            <td>{{ $case->decision ?? '-' }}</td>--}}
                                             <td>{{ $case->division ?? '-' }}</td>
                                             <td class="text-center">
                                                 <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#caseDetailModal{{ $case->id }}">
-                                                    <i class="fas fa-eye"></i> View
+                                                    <i class="fas fa-eye"></i> Lihat
                                                 </button>
                                             </td>
                                         </tr>
@@ -123,7 +123,7 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
             </div>
         </div>
     </div>

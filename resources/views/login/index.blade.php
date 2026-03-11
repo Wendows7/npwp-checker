@@ -13,7 +13,7 @@
 
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h4>Login</h4>
+                                <h4>Masuk</h4>
                             </div>
 
                             <div class="card-body">
@@ -24,18 +24,18 @@
                                         <input id="email" type="email" class="form-control " name="email"
                                             tabindex="1" required autofocus value="{{ old('email') }}">
                                         <div class="invalid-feedback">
-                                            please fill in your email
+                                            harap isi email Anda
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <div class="d-block">
-                                            <label for="password" class="control-label">Password</label>
+                                            <label for="password" class="control-label">Kata Sandi</label>
                                         </div>
                                         <input id="password" type="password" class="form-control" name="password"
                                             tabindex="2" required>
                                         <div class="invalid-feedback">
-                                            please fill in your password
+                                            harap isi kata sandi Anda
                                         </div>
                                     </div>
 
@@ -43,13 +43,13 @@
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" name="remember" class="custom-control-input"
                                                 tabindex="3" id="remember-me">
-                                            <label class="custom-control-label" for="remember-me">Remember Me</label>
+                                            <label class="custom-control-label" for="remember-me">Ingat Saya</label>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
-                                            Login
+                                            Masuk
                                         </button>
                                     </div>
                                 </form>

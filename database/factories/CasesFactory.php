@@ -23,7 +23,7 @@ class CasesFactory extends Factory
             'chapter' => fake()->randomElement(['Chapter 1', 'Chapter 2', 'Chapter 3']),
             'place' => fake()->city(),
             'datetime' => fake()->dateTime(),
-            'decision' => fake()->randomElement(['Guilty', 'Not Guilty', 'Dismissed']),
+//            'decision' => fake()->randomElement(['Guilty', 'Not Guilty', 'Dismissed']),
             'division' => fake()->randomElement(['Division A', 'Division B', 'Division C']),
             'description' => fake()->paragraph(),
 

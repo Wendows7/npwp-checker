@@ -16,11 +16,12 @@ class Cases extends Model
          'chapter',
          'place',
          'datetime',
-         'decision',
+//         'decision',
          'division',
          'description',
          'updated_by',
-         'evidence'
+         'evidence',
+         'photo_evidence',
     ];
 
     public function suspect()

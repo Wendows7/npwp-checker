@@ -20,15 +20,15 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Check Data</h1>
+                <h1>Cek Data</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="/dashboard">Dashboard</a></div>
-                    <div class="breadcrumb-item">Check Data</div>
+                    <div class="breadcrumb-item">Cek Data</div>
                 </div>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Search</h2>
+                <h2 class="section-title">Pencarian</h2>
                 <p class="section-lead">
                     Cari dan cek data tersangka
                 </p>
@@ -37,9 +37,9 @@
                     <div class="col-12">
                         <form class="form-inline" method="GET" action="{{ route('suspect.search') }}">
                             <div class="input-group w-100">
-                                <input type="text" name="slug" class="form-control" placeholder="Search by NIK" value="{{ request('nik') }}">
+                                <input type="text" name="slug" class="form-control" placeholder="Cari berdasarkan NIK" value="{{ request('nik') }}">
                                 <div class="input-group-append">
-                                    <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i>&nbsp;Search</button>
+                                    <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i>&nbsp;Cari</button>
                                 </div>
                             </div>
                         </form>
@@ -109,17 +109,17 @@
                                             <div class="col-md-6 mb-3 mb-md-0">
                                                 <div class="card h-100">
                                                     <div class="card-header">
-                                                        <h5 class="mb-0">Details</h5>
+                                                        <h5 class="mb-0">Detail</h5>
                                                     </div>
                                                     <div class="card-body">
                                                         <p><strong>NIK:</strong> {{ $suspect->nik ?? '-' }}</p>
-                                                        <p><strong>Name:</strong> {{ $suspect->name ?? '-' }}</p>
-                                                        <p><strong>Gender:</strong> {{ $suspect->gender ?? '-' }}</p>
+                                                        <p><strong>Nama:</strong> {{ $suspect->name ?? '-' }}</p>
+                                                        <p><strong>Jenis Kelamin:</strong> {{ $suspect->gender == 'Male' ? 'Laki-laki' : ($suspect->gender == 'Female' ? 'Perempuan' : ($suspect->gender ?? '-')) }}</p>
                                                         @if(!empty($suspect->place_of_birth))
-                                                            <p><strong>Place of Birth:</strong> {{ $suspect->place_of_birth }}</p>
+                                                            <p><strong>Tempat Lahir:</strong> {{ $suspect->place_of_birth }}</p>
                                                         @endif
                                                         @if(!empty($suspect->date_of_birth))
-                                                            <p><strong>Date of Birth:</strong> {{ $suspect->date_of_birth }}</p>
+                                                            <p><strong>Tanggal Lahir:</strong> {{ $suspect->date_of_birth }}</p>
                                                         @endif
                                                         {{-- add other string fields as needed --}}
                                                         <div class="mt-3">
@@ -134,7 +134,7 @@
                                             <div class="col-md-6">
                                                 <div class="card h-100">
                                                     <div class="card-header">
-                                                        <h5 class="mb-0">Photos</h5>
+                                                        <h5 class="mb-0">Foto</h5>
                                                     </div>
                                                     <div class="card-body">
                                                         <div class="row">
@@ -156,7 +156,7 @@
                                                             @else
                                                                 <div class="col-12 text-center">
                                                                     <div class="border rounded d-flex align-items-center justify-content-center" style="height:200px;">
-                                                                        <span class="text-muted">No image available</span>
+                                                                        <span class="text-muted">Tidak ada gambar</span>
                                                                     </div>
                                                                 </div>
                                                             @endif
@@ -170,7 +170,7 @@
                                         @if(!empty($suspect->cases) && is_iterable($suspect->cases) && count($suspect->cases))
                                             <div class="card mt-3">
                                                 <div class="card-header">
-                                                    <h6 class="mb-0">Cases</h6>
+                                                    <h6 class="mb-0">Kasus</h6>
                                                 </div>
                                                 <div class="card-body p-0">
                                                     <div class="table-responsive">
@@ -185,7 +185,7 @@
                                                                 <th>Tanggal</th>
                                                                 <th>Keputusan</th>
                                                                 <th>Divisi</th>
-                                                                <th class="text-center">Action</th>
+                                                                <th class="text-center">Aksi</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
@@ -201,7 +201,7 @@
                                                                     <td>{{ $case->division ?? '-' }}</td>
 {{--                                                                    <td class="text-truncate" style="max-width:200px;">{{ $case->description ?? '-' }}</td>--}}
                                                                     <td class="text-center">
-                                                                        <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#caseDetailModal{{ $case->id }}">View</button>
+                                                                        <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#caseDetailModal{{ $case->id }}">Lihat</button>
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
@@ -217,7 +217,7 @@
                         @endforeach
                     </div>
                 @else
-                    <div class="alert alert-info">No suspects found.</div>
+                    <div class="alert alert-info">Tidak ada data tersangka ditemukan.</div>
                 @endif
 
             </div>

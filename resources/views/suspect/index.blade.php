@@ -22,7 +22,7 @@
 
                 <div class="row mb-3">
                     <div class="col-md-6">
-                        <button class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#createModal"><i class="far fa-edit"></i>&nbsp;Add Suspect</button>
+                        <button class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#createModal"><i class="far fa-edit"></i>&nbsp;Tambah Tersangka</button>
                     </div>
 {{--                    <div class="col-md-6 text-right">--}}
 {{--                        <button class="btn btn-success" data-toggle="modal" data-target="#importModal"><i class="fas fa-file-upload"></i>&nbsp;Import Excel</button>--}}
@@ -33,7 +33,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Table All Suspect</h4>
+                                <h4>Tabel Semua Tersangka</h4>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -42,11 +42,11 @@
                                         <tr>
                                             <th class="text-center">No</th>
                                             <th>NIK</th>
-                                            <th>Name</th>
+                                            <th>Nama</th>
                                             <th>Alias</th>
-                                            <th>Gender</th>
-                                            <th>Age</th>
-                                            <th class="text-center">Action</th>
+                                            <th>Jenis Kelamin</th>
+                                            <th>Umur</th>
+                                            <th class="text-center">Aksi</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -58,9 +58,9 @@
                                                 <td>{{ $suspect->alias ?? '-' }}</td>
                                                 <td>
                                                     @if($suspect->gender == 'Male')
-                                                        <div class="badge badge-primary">Male</div>
+                                                        <div class="badge badge-primary">Laki-laki</div>
                                                     @elseif($suspect->gender == 'Female')
-                                                        <div class="badge badge-danger">Female</div>
+                                                        <div class="badge badge-danger">Perempuan</div>
                                                     @else
                                                         -
                                                     @endif
@@ -72,7 +72,7 @@
                                                     <form action="{{route('suspect.delete',['suspect' => $suspect->id])}}" method="POST" style="display:inline;">
                                                         @method('delete')
                                                         @csrf
-                                                        <button class="btn btn-danger btn-action show_confirm" type="submit" title="Delete"><i class="fas fa-trash"></i></button>
+                                                        <button class="btn btn-danger btn-action show_confirm" type="submit" title="Hapus"><i class="fas fa-trash"></i></button>
                                                     </form>
                                                 </td>
                                             </tr>
@@ -100,7 +100,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="importModalLabel"><i class="fas fa-file-upload"></i>&nbsp;Import Data Suspect</h5>
+                    <h5 class="modal-title" id="importModalLabel"><i class="fas fa-file-upload"></i>&nbsp;Import Data Tersangka</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -124,7 +124,7 @@
                             <ul class="mb-0">
                                 <li>nik</li>
                                 <li>name</li>
-                                <li>alias (optional)</li>
+                                <li>alias (opsional)</li>
                                 <li>gender</li>
                                 <li>place_of_birth</li>
                                 <li>date_of_birth</li>
@@ -133,13 +133,13 @@
                                 <li>education</li>
                                 <li>occupation</li>
                                 <li>address</li>
-                                <li>finger_code (optional)</li>
-                                <li>photo (optional)</li>
+                                <li>finger_code (opsional)</li>
+                                <li>photo (opsional)</li>
                             </ul>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                         <button type="submit" class="btn btn-primary"><i class="fas fa-upload"></i>&nbsp;Import</button>
                     </div>
                 </form>
