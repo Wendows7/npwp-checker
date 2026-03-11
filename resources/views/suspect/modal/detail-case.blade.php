@@ -11,10 +11,10 @@
                     </div>
                     <div class="modal-body">
                         <dl class="row mb-0">
-                            <dt class="col-4">Nomor Kasus</dt>
+                            <dt class="col-4">Nomor LP</dt>
                             <dd class="col-8">{{ $case->number ?? '-' }}</dd>
 
-                            <dt class="col-4">Nama</dt>
+                            <dt class="col-4">Jenis Kasus</dt>
                             <dd class="col-8">{{ $case->name ?? '-' }}</dd>
 
                             <dt class="col-4">Pasal</dt>

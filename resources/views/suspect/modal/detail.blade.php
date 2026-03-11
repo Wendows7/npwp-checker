@@ -86,8 +86,8 @@
                                     <thead>
                                     <tr>
                                         <th class="text-center">#</th>
-                                        <th>No Kasus</th>
-                                        <th>Nama</th>
+                                        <th>No LP</th>
+                                        <th>Jenis Kasus</th>
                                         <th>Pasal</th>
                                         <th>Tempat</th>
                                         <th>Tanggal</th>

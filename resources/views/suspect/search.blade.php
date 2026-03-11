@@ -30,21 +30,73 @@
             <div class="section-body">
                 <h2 class="section-title">Pencarian</h2>
                 <p class="section-lead">
-                    Cari dan cek data tersangka
+                    Cari data tersangka berdasarkan NIK, Nama, Nomor Kasus, atau Tanggal Kasus
                 </p>
 
-                <div class="row mb-3">
+                <div class="row mb-4">
                     <div class="col-12">
-                        <form class="form-inline" method="GET" action="{{ route('suspect.search') }}">
-                            <div class="input-group w-100">
-                                <input type="text" name="slug" class="form-control" placeholder="Cari berdasarkan NIK" value="{{ request('nik') }}">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i>&nbsp;Cari</button>
-                                </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <form method="GET" action="{{ route('suspect.search') }}">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="form-group mb-3 mb-md-0">
+                                                <label for="keyword" class="font-weight-bold">Kata Kunci</label>
+                                                <input type="text"
+                                                       name="keyword"
+                                                       id="keyword"
+                                                       class="form-control form-control-lg"
+                                                       placeholder="Cari berdasarkan NIK, Nama, atau Nomor Kasus"
+                                                       value="{{ request('keyword') }}">
+                                                <small class="form-text text-muted">
+                                                    <i class="fas fa-info-circle"></i> Masukkan NIK, Nama Tersangka, atau Nomor Kasus
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group mb-3 mb-md-0">
+                                                <label for="date" class="font-weight-bold">Tanggal Kasus</label>
+                                                <input type="date"
+                                                       name="date"
+                                                       id="date"
+                                                       class="form-control form-control-lg"
+                                                       value="{{ request('date') }}">
+                                                <small class="form-text text-muted">
+                                                    <i class="fas fa-calendar"></i> Filter berdasarkan tanggal kasus
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <button class="btn btn-primary btn-lg" type="submit">
+                                                <i class="fas fa-search"></i>&nbsp;Cari Data
+                                            </button>
+                                            <a href="{{ route('suspect') }}" class="btn btn-secondary btn-lg ml-2">
+                                                <i class="fas fa-redo"></i>&nbsp;Reset
+                                            </a>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
+
+                @if(isset($suspects) && $suspects !== null && $suspects->count())
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong><i class="fas fa-check-circle"></i> Hasil Pencarian:</strong> Ditemukan <strong>{{ $suspects->count() }}</strong> data tersangka
+                        @if(request('keyword'))
+                            dengan kata kunci "<strong>{{ request('keyword') }}</strong>"
+                        @endif
+                        @if(request('date'))
+                            pada tanggal "<strong>{{ \Carbon\Carbon::parse(request('date'))->format('d M Y') }}</strong>"
+                        @endif
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
 
                 @if(isset($suspects) && $suspects->count())
 
@@ -178,12 +230,12 @@
                                                             <thead>
                                                             <tr>
                                                                 <th class="text-center">#</th>
-                                                                <th>No Kasus</th>
-                                                                <th>Nama</th>
+                                                                <th>No LP</th>
+                                                                <th>Jenis Kasus</th>
                                                                 <th>Pasal</th>
                                                                 <th>Tempat</th>
                                                                 <th>Tanggal</th>
-                                                                <th>Keputusan</th>
+{{--                                                                <th>Keputusan</th>--}}
                                                                 <th>Divisi</th>
                                                                 <th class="text-center">Aksi</th>
                                                             </tr>
@@ -197,7 +249,7 @@
                                                                     <td>{{ $case->chapter ?? '-' }}</td>
                                                                     <td>{{ $case->place ?? '-' }}</td>
                                                                     <td>{{ $case->datetime ?? ($case->created_at ?? '-') }}</td>
-                                                                    <td>{{ $case->decision ?? '-' }}</td>
+{{--                                                                    <td>{{ $case->decision ?? '-' }}</td>--}}
                                                                     <td>{{ $case->division ?? '-' }}</td>
 {{--                                                                    <td class="text-truncate" style="max-width:200px;">{{ $case->description ?? '-' }}</td>--}}
                                                                     <td class="text-center">
@@ -216,8 +268,25 @@
                             </div>
                         @endforeach
                     </div>
+                @elseif(isset($suspects) && $suspects->count() === 0)
+                    <div class="alert alert-warning">
+                        <h5><i class="fas fa-exclamation-triangle"></i> Tidak ada data ditemukan</h5>
+                        <p class="mb-0">
+                            Tidak ada data tersangka yang sesuai dengan kriteria pencarian
+                            @if(request('keyword'))
+                                "<strong>{{ request('keyword') }}</strong>"
+                            @endif
+                            @if(request('date'))
+                                pada tanggal "<strong>{{ \Carbon\Carbon::parse(request('date'))->format('d M Y') }}</strong>"
+                            @endif
+                            . Silakan coba dengan kata kunci atau tanggal lain.
+                        </p>
+                    </div>
                 @else
-                    <div class="alert alert-info">Tidak ada data tersangka ditemukan.</div>
+                    <div class="alert alert-info">
+                        <h5><i class="fas fa-info-circle"></i> Silakan Lakukan Pencarian</h5>
+                        <p class="mb-0">Gunakan form pencarian di atas untuk mencari data tersangka berdasarkan NIK, Nama, Nomor Kasus, atau Tanggal Kasus.</p>
+                    </div>
                 @endif
 
             </div>

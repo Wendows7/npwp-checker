@@ -240,7 +240,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="card-body">
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label>Nomor Kasus</label>
+                            <label>Nomor LP</label>
                             <input type="text" class="form-control" name="cases[${index}][number]">
                             <input type="hidden" class="form-control" name="cases[${index}][updated_by]" value="{{ auth()->user()->id }}">
                         </div>

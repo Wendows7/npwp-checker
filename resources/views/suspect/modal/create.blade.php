@@ -115,7 +115,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>&nbsp;Tambah Tersangka</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>&nbsp;Simpan</button>
                 </div>
             </form>
         </div>
@@ -158,8 +158,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="card-body">
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label>Nomor Kasus</label>
-                            <input type="text" class="form-control" name="cases[${index}][number]" value="{{ old('cases.${index}.number') }}">
+                            <label>Nomor LP</label>
+                            <input type="text" class="form-control" name="cases[${index}][number]" value="{{ old('cases.${index}.number') }}" required>
                             <small class="form-text text-muted">CONTOH : LP / A / 552 / XI / 2025 / SPKT.DITNARKOBA / POLDA SUMATERA UTARA</small>
                             <input type="hidden" class="form-control" name="cases[${index}][updated_by]" value="{{ auth()->user()->id }}">
                         </div>

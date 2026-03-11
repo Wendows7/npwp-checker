@@ -31,13 +31,20 @@ class SuspectController extends Controller
     public function search(Request $request)
     {
         $selisihMenit = $this->authService->showMinute();
-        $suspects = $this->suspectService->getByNik($request->query('slug'));
+
+        // Get search parameters
+        $keyword = $request->query('keyword');
+        $date = $request->query('date');
+
+        // Use new search method with multiple criteria
+        $suspects = $this->suspectService->search($keyword, $date);
 
         if ($suspects->isEmpty()) {
-            return redirect()->route('suspect')->with('error', 'Data tidak ditemukan');
+            alert()->warning('Peringatan', 'Data tidak ditemukan');
+            return view('suspect.search', compact('suspects', 'selisihMenit'));
         }
 
-        alert()->success('Success', 'Data Ditemukan');
+        alert()->success('Sukses', 'Ditemukan ' . $suspects->count() . ' data tersangka');
 
         return view('suspect.search', compact('suspects','selisihMenit'));
     }

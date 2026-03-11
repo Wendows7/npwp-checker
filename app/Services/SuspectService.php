@@ -18,7 +18,40 @@ class SuspectService
 
     public function getByNik($nik)
     {
-        return $this->suspect->where('nik', 'LIKE', '%' . $nik . '%')->with('cases.user')->get();
+        return $this->suspect->where('nik', 'LIKE', '%' . $nik . '%')->orWhere('name', 'LIKE', '%' . $nik . '%')->with('cases.user')->get();
+    }
+
+    /**
+     * Search suspects by multiple criteria
+     * @param string|null $keyword - Search keyword for name, NIK, case number
+     * @param string|null $date - Search by case date
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function search($keyword = null, $date = null)
+    {
+        $query = $this->suspect->with('cases.user');
+
+        if (!empty($keyword)) {
+            $query->where(function($q) use ($keyword) {
+                // Search by suspect name or NIK
+                $q->where('name', 'LIKE', '%' . $keyword . '%')
+                  ->orWhere('nik', 'LIKE', '%' . $keyword . '%')
+                  // Search by case number or case name
+                  ->orWhereHas('cases', function($caseQuery) use ($keyword) {
+                      $caseQuery->where('number', 'LIKE', '%' . $keyword . '%')
+                                ->orWhere('name', 'LIKE', '%' . $keyword . '%');
+                  });
+            });
+        }
+
+        if (!empty($date)) {
+            // Search by case date
+            $query->whereHas('cases', function($caseQuery) use ($date) {
+                $caseQuery->whereDate('datetime', $date);
+            });
+        }
+
+        return $query->get();
     }
 
     public function getAll()
