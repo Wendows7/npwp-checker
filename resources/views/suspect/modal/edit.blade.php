@@ -17,8 +17,8 @@
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="nik_{{ $suspect->id }}">NIK <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control @error('nik') is-invalid @enderror" id="nik_{{ $suspect->id }}" name="nik" value="{{ old('nik', $suspect->nik) }}" required>
+                            <label for="nik_{{ $suspect->id }}">NIK</label>
+                            <input type="text" class="form-control @error('nik') is-invalid @enderror" id="nik_{{ $suspect->id }}" name="nik" value="{{ old('nik', $suspect->nik) }}">
                             @error('nik')
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
@@ -93,13 +93,14 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="photo_{{ $suspect->id }}">Foto</label>
+                        <label for="photo_{{ $suspect->id }}">Foto <span class="text-danger">*</span></label>
+                        <small class="form-text text-muted">(Foto Harus memakai baju tersangka dan plang pasal yang dilanggar)</small>
                         @if(!empty($suspect->photo))
                             <div class="mb-2">
                                 <img src="{{ asset('storage/' . $suspect->photo) }}" width="100" alt="photo" class="rounded">
                             </div>
                         @endif
-                        <input type="file" class="form-control @error('photo') is-invalid @enderror" id="photo_{{ $suspect->id }}" name="photo" accept="image/*">
+                        <input type="file" class="form-control @error('photo') is-invalid @enderror" id="photo_{{ $suspect->id }}" name="photo" accept="image/*" required>
                         <small class="form-text text-muted">Maksimal 2MB (JPEG, PNG, JPG, GIF)</small>
                         @error('photo')
                             <span class="invalid-feedback">{{ $message }}</span>
@@ -131,8 +132,9 @@
 
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
-                                                <label>Nomor Kasus</label>
+                                                <label>Nomor LP</label>
                                                 <input type="text" class="form-control" name="cases[{{ $caseIndex }}][number]" value="{{ old('cases.'.$caseIndex.'.number', $case->number) }}">
+                                                <small class="form-text text-muted">CONTOH : LP / A / 552 / XI / 2025 / SPKT.DITNARKOBA / POLDA SUMATERA UTARA</small>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label>Jenis Kasus</label>
@@ -176,13 +178,15 @@
                                             <textarea class="form-control" name="cases[{{ $caseIndex }}][evidence]" rows="2">{{ old('cases.'.$caseIndex.'.evidence', $case->evidence) }}</textarea>
                                         </div>
                                         <div class="form-group">
-                                            <label>Foto Barang Bukti</label>
+                                            <label>Foto Barang Bukti <span class="text-danger">*</span></label>
                                             @if(!empty($case->photo_evidence))
                                                 <div class="mb-2">
                                                     <img src="{{ asset('storage/' . $case->photo_evidence) }}" width="100" alt="evidence" class="rounded">
                                                 </div>
-                                            @endif
                                             <input type="file" class="form-control" name="cases[{{ $caseIndex }}][photo_evidence]" accept="image/*">
+                                            @else
+                                            <input type="file" class="form-control" name="cases[{{ $caseIndex }}][photo_evidence]" accept="image/*" required>
+                                            @endif
                                             <small class="form-text text-muted">Maksimal 2MB (JPEG, PNG, JPG, GIF)</small>
                                         </div>
                                     </div>
@@ -288,8 +292,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
 
                     <div class="form-group">
-                        <label>Foto Barang Bukti</label>
-                        <input type="file" class="form-control" name="cases[${index}][photo_evidence]" accept="image/*">
+                        <label>Foto Barang Bukti <span class="text-danger">*</span></label>
+                        <input type="file" class="form-control" name="cases[${index}][photo_evidence]" accept="image/*" required>
                         <small class="form-text text-muted">Maksimal 2MB (JPEG, PNG, JPG, GIF)</small>
                     </div>
                 </div>

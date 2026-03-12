@@ -207,8 +207,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
 
                     <div class="form-group">
-                        <label>Foto Barang Bukti</label>
-                        <input type="file" class="form-control" name="cases[${index}][photo_evidence]" accept="image/*">
+                        <label>Foto Barang Bukti <span class="text-danger">*</span></label>
+                        <input type="file" class="form-control" name="cases[${index}][photo_evidence]" accept="image/*" required>
                         <small class="form-text text-muted">Maksimal 2MB (JPEG, PNG, JPG, GIF)</small>
                     </div>
                 </div>

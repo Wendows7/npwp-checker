@@ -89,7 +89,7 @@
                                         <th>No LP</th>
                                         <th>Jenis Kasus</th>
                                         <th>Pasal</th>
-                                        <th>Tempat</th>
+                                        <th>TKP</th>
                                         <th>Tanggal</th>
 {{--                                        <th>Keputusan</th>--}}
                                         <th>Divisi</th>
