@@ -99,8 +99,10 @@
                             <div class="mb-2">
                                 <img src="{{ asset('storage/' . $suspect->photo) }}" width="100" alt="photo" class="rounded">
                             </div>
-                        @endif
+                        <input type="file" class="form-control @error('photo') is-invalid @enderror" id="photo_{{ $suspect->id }}" name="photo" accept="image/*">
+                        @else
                         <input type="file" class="form-control @error('photo') is-invalid @enderror" id="photo_{{ $suspect->id }}" name="photo" accept="image/*" required>
+                        @endif
                         <small class="form-text text-muted">Maksimal 2MB (JPEG, PNG, JPG, GIF)</small>
                         @error('photo')
                             <span class="invalid-feedback">{{ $message }}</span>
