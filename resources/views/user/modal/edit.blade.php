@@ -30,6 +30,7 @@
                <select class="form-control selectric" name="role" >
                  <option value="admin" {{ $value->role == "admin" ? 'selected' : '' }}>Admin</option>
                  <option value="user" {{ $value->role == "user" ? 'selected' : '' }}>User</option>
+                 <option value="super_admin" {{ $value->role == "super_admin" ? 'selected' : '' }}>Super Admin</option>
                </select>
              </div>
                <div class="form-group ">
@@ -42,8 +43,8 @@
              <div class="form-group">
                  <label>Aktif</label>
                  <select class="form-control selectric" name="is_active" >
-                     <option value="0" {{ $value->is_active == "0" ? 'selected' : '' }}>Tidak Aktif</option>
-                     <option value="1" {{ $value->is_active == "1" ? 'selected' : '' }}>Aktif</option>
+                     <option value="0" {{ $value->is_active == 0 ? 'selected' : '' }}>Tidak Aktif</option>
+                     <option value="1" {{ $value->is_active == 1 ? 'selected' : '' }}>Aktif</option>
                  </select>
              </div>
                <div class="form-group ">

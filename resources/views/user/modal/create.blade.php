@@ -44,6 +44,9 @@
                 <div class="form-group ">
                   <label>Kata Sandi</label>
                   <input type="password" name="password" class="form-control" required="" >
+                    <div class="invalid-feedback">
+                        Harap isi form ini
+                    </div>
                 </div>
               </div>
         </div>

@@ -79,7 +79,7 @@
                         <td >
                         {{ $user->email }}
                         </td>
-                        <td>{{ $user->role }}</td>
+                        <td>{{ $user->role == 'super_admin' ? "Super Admin" : $user->role }}</td>
                         <td>{{ $user->is_active == 1 ? "Aktif" : "Tidak Aktif" }}</td>
                         <td>
                             <button class="btn btn-icon btn-warning btn-sm mb-1"  data-toggle="modal" data-target="#editModal{{ $user->id }}"><i class="fas fa-exclamation-triangle"></i>Edit</button>
@@ -102,6 +102,9 @@
             </div>
           </div>
         </div>
+        </div>
+        </section>
+    </div>
 
  @endsection
 
