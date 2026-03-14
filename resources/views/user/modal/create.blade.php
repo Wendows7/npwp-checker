@@ -20,7 +20,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label>Peran</label>
+                  <label>Role</label>
                   <select class="form-control selectric" name="role" value="{{ old('role') }}" required="">
                     <option value="super_admin">Super Admin</option>
                     <option value="admin">Admin</option>

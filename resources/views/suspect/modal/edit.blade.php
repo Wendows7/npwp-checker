@@ -179,18 +179,18 @@
                                             <label>Barang Bukti</label>
                                             <textarea class="form-control" name="cases[{{ $caseIndex }}][evidence]" rows="2">{{ old('cases.'.$caseIndex.'.evidence', $case->evidence) }}</textarea>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Foto Barang Bukti <span class="text-danger">*</span></label>
-                                            @if(!empty($case->photo_evidence))
-                                                <div class="mb-2">
-                                                    <img src="{{ asset('storage/' . $case->photo_evidence) }}" width="100" alt="evidence" class="rounded">
-                                                </div>
-                                            <input type="file" class="form-control" name="cases[{{ $caseIndex }}][photo_evidence]" accept="image/*">
-                                            @else
-                                            <input type="file" class="form-control" name="cases[{{ $caseIndex }}][photo_evidence]" accept="image/*" required>
-                                            @endif
-                                            <small class="form-text text-muted">Maksimal 2MB (JPEG, PNG, JPG, GIF)</small>
-                                        </div>
+{{--                                        <div class="form-group">--}}
+{{--                                            <label>Foto Barang Bukti <span class="text-danger">*</span></label>--}}
+{{--                                            @if(!empty($case->photo_evidence))--}}
+{{--                                                <div class="mb-2">--}}
+{{--                                                    <img src="{{ asset('storage/' . $case->photo_evidence) }}" width="100" alt="evidence" class="rounded">--}}
+{{--                                                </div>--}}
+{{--                                            <input type="file" class="form-control" name="cases[{{ $caseIndex }}][photo_evidence]" accept="image/*">--}}
+{{--                                            @else--}}
+{{--                                            <input type="file" class="form-control" name="cases[{{ $caseIndex }}][photo_evidence]" accept="image/*" required>--}}
+{{--                                            @endif--}}
+{{--                                            <small class="form-text text-muted">Maksimal 2MB (JPEG, PNG, JPG, GIF)</small>--}}
+{{--                                        </div>--}}
                                     </div>
                                 </div>
                             @endforeach
@@ -293,15 +293,17 @@ document.addEventListener('DOMContentLoaded', function() {
                         <textarea class="form-control" name="cases[${index}][evidence]" rows="2"></textarea>
                     </div>
 
-                    <div class="form-group">
-                        <label>Foto Barang Bukti <span class="text-danger">*</span></label>
-                        <input type="file" class="form-control" name="cases[${index}][photo_evidence]" accept="image/*" required>
-                        <small class="form-text text-muted">Maksimal 2MB (JPEG, PNG, JPG, GIF)</small>
-                    </div>
+
+
                 </div>
             </div>
         `;
     }
 });
 </script>
+{{--<div class="form-group">--}}
+{{--    <label>Foto Barang Bukti <span class="text-danger">*</span></label>--}}
+{{--    <input type="file" class="form-control" name="cases[${index}][photo_evidence]" accept="image/*" required>--}}
+{{--    <small class="form-text text-muted">Maksimal 2MB (JPEG, PNG, JPG, GIF)</small>--}}
+{{--</div>--}}
 {{-- end edit modal --}}

@@ -206,15 +206,19 @@ document.addEventListener('DOMContentLoaded', function() {
                         <textarea class="form-control" name="cases[${index}][evidence]" rows="2">{{ old('cases.${index}.evidence') }}</textarea>
                     </div>
 
-                    <div class="form-group">
-                        <label>Foto Barang Bukti <span class="text-danger">*</span></label>
-                        <input type="file" class="form-control" name="cases[${index}][photo_evidence]" accept="image/*" required>
-                        <small class="form-text text-muted">Maksimal 2MB (JPEG, PNG, JPG, GIF)</small>
-                    </div>
+
+
                 </div>
             </div>
         `;
     }
 });
 </script>
+
+{{--<div class="form-group">--}}
+{{--    <label>Foto Barang Bukti <span class="text-danger">*</span></label>--}}
+{{--    <input type="file" class="form-control" name="cases[${index}][photo_evidence]" accept="image/*" required>--}}
+{{--    <small class="form-text text-muted">Maksimal 2MB (JPEG, PNG, JPG, GIF)</small>--}}
+{{--</div>--}}
+
 {{-- end create modal --}}

@@ -47,14 +47,14 @@
                             <dt class="col-4">Barang Bukti</dt>
                             <dd class="col-8">{!! nl2br(e($case->evidence ?? '-')) !!}</dd>
 
-                            <dt class="col-4">Foto Barang Bukti</dt>
-                            <dd class="col-8">
-                                @if(!empty($case->photo_evidence))
-                                    <img src="{{ asset('storage/' . $case->photo_evidence) }}" alt="evidence-{{ $case->id }}" class="img-fluid rounded" style="max-height:200px; object-fit:contain;">
-                                @else
-                                    -
-                                @endif
-                            </dd>
+{{--                            <dt class="col-4">Foto Barang Bukti</dt>--}}
+{{--                            <dd class="col-8">--}}
+{{--                                @if(!empty($case->photo_evidence))--}}
+{{--                                    <img src="{{ asset('storage/' . $case->photo_evidence) }}" alt="evidence-{{ $case->id }}" class="img-fluid rounded" style="max-height:200px; object-fit:contain;">--}}
+{{--                                @else--}}
+{{--                                    ---}}
+{{--                                @endif--}}
+{{--                            </dd>--}}
 
                         </dl>
                     </div>

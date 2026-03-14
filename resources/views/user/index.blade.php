@@ -64,7 +64,7 @@
                         </th>
                         <th>Nama</th>
                         <th>Email</th>
-                        <th>Peran</th>
+                        <th>Role</th>
                         <th>Aktif</th>
                         <th>Aksi</th>
                       </tr>

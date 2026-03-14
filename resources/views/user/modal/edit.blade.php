@@ -26,7 +26,7 @@
                  </div>
                </div>
               <div class="form-group">
-               <label>Peran</label>
+               <label>Role</label>
                <select class="form-control selectric" name="role" >
                  <option value="admin" {{ $value->role == "admin" ? 'selected' : '' }}>Admin</option>
                  <option value="user" {{ $value->role == "user" ? 'selected' : '' }}>User</option>
