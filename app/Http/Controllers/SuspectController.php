@@ -78,7 +78,7 @@ class SuspectController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nik' => 'unique:suspects,nik',
+            'nik' => 'nullable|string',
             'name' => 'required|string',
             'gender' => 'required|string',
             'alias' => 'nullable|string',
@@ -144,7 +144,7 @@ class SuspectController extends Controller
     {
 
         $request->validate([
-            'nik' => 'required|unique:suspects,nik,' . $suspect->id,
+            'nik' => 'nullable|string' . $suspect->id,
             'name' => 'required|string',
             'gender' => 'required|string',
             'alias' => 'nullable|string',
