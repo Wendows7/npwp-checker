@@ -93,6 +93,7 @@
                                         <th>Tanggal</th>
 {{--                                        <th>Keputusan</th>--}}
                                         <th>Divisi</th>
+                                        <th>Kesatuan</th>
                                         <th class="text-center">Aksi</th>
                                     </tr>
                                     </thead>
@@ -107,6 +108,7 @@
                                             <td>{{ $case->datetime ? \Carbon\Carbon::parse($case->datetime)->format('d M Y') : ($case->date ?? ($case->created_at ?? '-')) }}</td>
 {{--                                            <td>{{ $case->decision ?? '-' }}</td>--}}
                                             <td>{{ $case->division ?? '-' }}</td>
+                                            <td>{{ $case->unity->name ?? '-' }}</td>
                                             <td class="text-center">
                                                 <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#caseDetailModal{{ $case->id }}">
                                                     <i class="fas fa-eye"></i> Lihat

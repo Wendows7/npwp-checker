@@ -44,6 +44,8 @@ class SuspectService
             });
         }
 
+//        dd($query->get()); // Debugging line to check the generated SQL query
+
         if (!empty($date)) {
             // Search by case date
             $query->whereHas('cases', function($caseQuery) use ($date) {
@@ -61,7 +63,26 @@ class SuspectService
 
     public function getAllWithCases()
     {
-        return $this->suspect->with('cases.user')->get();
+        return $this->suspect->with('cases.user', 'cases.unity')->get();
+    }
+
+    public function getByUnity($unity)
+    {
+        $query = $this->suspect->with('cases.unity');
+
+        if (!empty($unity)) {
+            $query->where(function($q) use ($unity) {
+                // Search by suspect name or NIK
+                $q->orWhereHas('cases', function($caseQuery) use ($unity) {
+                        $caseQuery->where('unity_id', $unity);
+                    });
+            });
+
+            $query->with(['cases' => function ($q) use ($unity) {
+                $q->where('unity_id', $unity); // Tetap ambil detail unity-nya jika perlu
+            }]);
+        }
+return $query->get();
     }
 
     /**
@@ -107,6 +128,7 @@ class SuspectService
                             'updated_by' => $caseData['updated_by'] ?? null,
                             'evidence' => $caseData['evidence'] ?? null,
                             'photo_evidence' => $photoEvidencePath,
+                            'unity_id' => $caseData['unity_id'] ?? null,
                         ]);
                     }
                 }
@@ -170,7 +192,7 @@ class SuspectService
                                 $hasChanges = false;
                                 $casePayload = [];
 
-                                $fieldsToCheck = ['number', 'name', 'chapter', 'place', 'datetime', 'division', 'decision', 'description','evidence'];
+                                $fieldsToCheck = ['number', 'name', 'chapter', 'place', 'datetime', 'division', 'decision', 'description','evidence','unity_id'];
 
                                 foreach ($fieldsToCheck as $field) {
                                     $newValue = $caseData[$field] ?? null;
@@ -221,6 +243,7 @@ class SuspectService
                                 'updated_by' => $caseData['updated_by'] ?? null,
                                 'evidence' => $caseData['evidence'] ?? null,
                                 'photo_evidence' => $photoEvidencePath,
+                                'unity_id' => $caseData['unity_id'] ?? null,
                             ];
 
                             $newCase = $suspect->cases()->create($casePayload);

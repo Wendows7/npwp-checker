@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\AuthService;
+use App\Services\UnityService;
 use Illuminate\Http\Request;
 use App\Services\SuspectService;
 use App\Models\Suspect;
@@ -14,10 +15,11 @@ class SuspectController extends Controller
 
     protected $suspectService;
     protected $authService;
-    public function __construct(SuspectService $suspectService, AuthService $authService)
+    public function __construct(SuspectService $suspectService, AuthService $authService, UnityService $unityService)
     {
         $this->authService = $authService;
         $this->suspectService = $suspectService;
+        $this->unityService = $unityService;
     }
 
     public function index()
@@ -53,9 +55,11 @@ class SuspectController extends Controller
     {
         $suspects = $this->suspectService->getAllWithCases();
         $selisihMenit = $this->authService->showMinute();
+        $kesatuan = $this->unityService->getAll()->get();
 
-        return view('suspect.index', compact('suspects', 'selisihMenit'));
+        return view('suspect.index', compact('suspects', 'selisihMenit', 'kesatuan'));
     }
+
 
     public function import(Request $request)
     {
@@ -104,6 +108,7 @@ class SuspectController extends Controller
             'cases.*.updated_by' => 'nullable|exists:users,id',
             'cases.*.evidence' => 'nullable|string',
             'cases.*.photo_evidence' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'cases.*.unity_id' => 'nullable',
         ]);
 
         try {
@@ -144,7 +149,7 @@ class SuspectController extends Controller
     {
 
         $request->validate([
-            'nik' => 'nullable|string' . $suspect->id,
+            'nik' => 'nullable|string',
             'name' => 'required|string',
             'gender' => 'required|string',
             'alias' => 'nullable|string',
@@ -171,9 +176,9 @@ class SuspectController extends Controller
             'cases.*.updated_by' => 'nullable|exists:users,id',
             'cases.*.evidence' => 'nullable|string',
             'cases.*.photo_evidence' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'cases.*.unity_id' => 'nullable',
 
         ]);
-
         try {
             // Prepare suspect data
             $suspectData = $request->only([
@@ -219,5 +224,14 @@ class SuspectController extends Controller
             alert()->error('Error', 'Gagal menghapus data: ' . $e->getMessage());
             return back();
         }
+    }
+
+    public function getByUnity(Request $request)
+    {
+        $suspects = $this->suspectService->getByUnity($request->unity_id);
+        $selisihMenit = $this->authService->showMinute();
+        $kesatuan = $this->unityService->getAll()->get();
+
+        return view('suspect.index', compact('suspects', 'selisihMenit', 'kesatuan'));
     }
 }

@@ -206,11 +206,21 @@ document.addEventListener('DOMContentLoaded', function() {
                         <textarea class="form-control" name="cases[${index}][evidence]" rows="2">{{ old('cases.${index}.evidence') }}</textarea>
                     </div>
 
+                                        <div class="form-group ">
+                                            <label>Kesatuan</label>
+                                            <select class="form-control" name="cases[${index}][unity_id]">
+                                                <option value="">Pilih Kesatuan</option>
+                                                @foreach($kesatuan as $data)
+        <option value="{{$data->id}}">{{ $data->name }}</option>
+                                                @endforeach
+        </select>
+    </div>
 
 
-                </div>
-            </div>
-        `;
+
+</div>
+</div>
+`;
     }
 });
 </script>

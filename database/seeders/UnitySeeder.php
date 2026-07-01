@@ -2,17 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Suspect;
+use App\Models\Unity;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class SuspectSeeder extends Seeder
+class UnitySeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-            Suspect::factory(100)->create();
+        Unity::factory(20)->create();
     }
 }

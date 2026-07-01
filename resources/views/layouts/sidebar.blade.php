@@ -14,6 +14,7 @@
             <ul class="dropdown-menu">
                 @can('superadmin')
         <li class={{ Request::is('data/users')? 'active' : '' }}><a class="nav-link" href="{{route('users')}}"><i class="fa fa-database"></i> <span>Pengguna</span></a></li>
+        <li class={{ Request::is('data/unities')? 'active' : '' }}><a class="nav-link" href="{{route('unities')}}"><i class="fa fa-database"></i> <span>Kesatuan</span></a></li>
         @endcan
         @canany(['superadmin','admin'])
         <li class={{ Request::is('data/suspects')? 'active' : '' }}><a class="nav-link" href="{{route('suspects.all')}}"><i class="fa fa-database"></i> <span>Tersangka</span></a></li>

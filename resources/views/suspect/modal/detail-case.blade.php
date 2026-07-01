@@ -47,6 +47,9 @@
                             <dt class="col-4">Barang Bukti</dt>
                             <dd class="col-8">{!! nl2br(e($case->evidence ?? '-')) !!}</dd>
 
+                            <dt class="col-4">Kesatuan</dt>
+                            <dd class="col-8">{{ $case->unity->name ?? '-' }}</dd>
+
 {{--                            <dt class="col-4">Foto Barang Bukti</dt>--}}
 {{--                            <dd class="col-8">--}}
 {{--                                @if(!empty($case->photo_evidence))--}}

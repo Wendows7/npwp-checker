@@ -22,6 +22,7 @@ class Cases extends Model
          'updated_by',
          'evidence',
          'photo_evidence',
+         'unity_id',
     ];
 
     public function suspect()
@@ -33,5 +34,10 @@ class Cases extends Model
     {
         return $this->belongsTo(User::class, 'updated_by');
 
+    }
+
+    public function unity()
+    {
+        return $this->belongsTo(Unity::class);
     }
 }

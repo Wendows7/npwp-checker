@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Unity;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -24,9 +25,12 @@ class DatabaseSeeder extends Seeder
             'role' => 'super_admin',
             'is_active' => true
         ]);
+
+
         $this->call([
             SuspectSeeder::class,
             CasesSeeder::class,
+            UnitySeeder::class,
         ]);
     }
 }

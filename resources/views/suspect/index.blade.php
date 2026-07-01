@@ -24,9 +24,42 @@
                     <div class="col-md-6">
                         <button class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#createModal"><i class="far fa-edit"></i>&nbsp;Tambah Tersangka</button>
                     </div>
-{{--                    <div class="col-md-6 text-right">--}}
-{{--                        <button class="btn btn-success" data-toggle="modal" data-target="#importModal"><i class="fas fa-file-upload"></i>&nbsp;Import Excel</button>--}}
-{{--                    </div>--}}
+                    @can('superadmin')
+                    <div class="col-md-6 text-right">
+                        <form action="{{ route('suspect.getByUnity') }}" method="POST">
+                            @csrf
+                            <div class="input-group">
+                                <!-- Dropdown Select -->
+                                <select class="form-control" name="unity_id" id="unity_id">
+                                    <option value="">-- Pilih Kesatuan --</option>
+                                    @foreach($kesatuan as $unity)
+                                        <option value="{{ $unity->id }}"
+                                            {{ (request('unity_id') == $unity->id || old('unity_id') == $unity->id) ? 'selected' : '' }}>
+                                            {{ $unity->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                                <!-- Tombol Aksi -->
+                                <div class="input-group-append">
+                                    <!-- Tombol Filter -->
+                                    <button class="btn btn-primary d-inline-flex align-items-center px-3" type="submit">
+                                        <i class="fas fa-search mr-2"></i> Filter
+                                    </button>
+
+                                    <!-- Tombol Reset -->
+                                    @if(request('unity_id') || old('unity_id'))
+                                        <a href="{{ route('suspects.all') }}"
+                                           class="btn btn-danger ml-1 d-inline-flex align-items-center justify-content-center px-3"
+                                           style="height: 100%;">
+                                            <i class="fas fa-sync mr-2"></i> Reset
+                                        </a>
+                                    @endif
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    @endcan
                 </div>
 
                 <div class="row">

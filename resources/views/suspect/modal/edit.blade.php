@@ -179,6 +179,17 @@
                                             <label>Barang Bukti</label>
                                             <textarea class="form-control" name="cases[{{ $caseIndex }}][evidence]" rows="2">{{ old('cases.'.$caseIndex.'.evidence', $case->evidence) }}</textarea>
                                         </div>
+
+                                        <div class="form-group ">
+                                            <label>Kesatuan</label>
+                                            <select class="form-control" name="cases[{{ $caseIndex }}][unity_id]">
+                                                <option value="">Pilih Kesatuan</option>
+                                                @foreach($kesatuan as $data)
+                                                    <option value="{{ $data->id }}" {{ old('cases.'.$caseIndex.'.unity'.'id', $case->unity_id) == $data->id ? 'selected' : '' }}>{{ $data->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
 {{--                                        <div class="form-group">--}}
 {{--                                            <label>Foto Barang Bukti <span class="text-danger">*</span></label>--}}
 {{--                                            @if(!empty($case->photo_evidence))--}}
@@ -295,9 +306,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-                </div>
-            </div>
-        `;
+                                        <div class="form-group ">
+                                            <label>Kesatuan</label>
+                                            <select class="form-control" name="cases[${index}][unity_id]">
+                                                <option value="">Pilih Kesatuan</option>
+                                                @foreach($kesatuan as $data)
+        <option value="{{ $data->id }}" >{{ $data->name }}</option>
+                                                @endforeach
+        </select>
+    </div>
+
+</div>
+</div>
+`;
     }
 });
 </script>
